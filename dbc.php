@@ -60,6 +60,36 @@ if (!isset($_SESSION['user_id']) && !isset($_SESSION['user_name']) )
 }
 
 
+public function createTable() {
+            try {
+                $sql = "CREATE TABLE IF NOT EXISTS usersaccount (
+                        id INT(11) AUTO_INCREMENT,
+                        displayname VARCHAR(65) NOT NULL,
+                        email VARCHAR(265) NOT NULL,
+                        salt VARCHAR(265) NOT NULL,
+                        password VARCHAR(265) NOT NULL,
+                        memberSince TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+                        verify BOOL NOT NULL,
+                        PRIMARY KEY(id)
+                        );";
+                $this->con->query($sql);
+                return true;
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+                }
+        }//END function createTable()
+        // function for drop usersaccount table
+    public function dropTableusersaccount() {
+        try {
+            $sql = "DROP TABLE usersaccount;";
+            $this->con->query($sql);
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
+    }
+
+
 
 function filter($data) {
 	$data = trim(htmlentities(strip_tags($data)));
